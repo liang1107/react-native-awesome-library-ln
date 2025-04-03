@@ -11,7 +11,7 @@ import java.util.List;
 public class AwesomeLibraryLnPackage implements ReactPackage {
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
-        return Collections.singletonList(new AwesomeLibraryLnModule(reactContext));
+      return Collections.singletonList((NativeModule) new AwesomeLibraryLnModule(reactContext));
     }
 
     @Override
