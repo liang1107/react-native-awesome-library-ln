@@ -10,14 +10,11 @@ buildscript {
 
   dependencies {
     classpath "com.android.tools.build:gradle:8.7.2"
-    // noinspection DifferentKotlinGradleVersion
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${getExtOrDefault('kotlinVersion')}"
   }
 }
 
 
 apply plugin: "com.android.library"
-apply plugin: "kotlin-android"
 
 
 def getExtOrIntegerDefault(name) {
@@ -61,10 +58,10 @@ android {
     disable "GradleCompatible"
   }
 
-  compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
-  }
+//  compileOptions {
+//    sourceCompatibility JavaVersion.VERSION_1_8
+//    targetCompatibility JavaVersion.VERSION_1_8
+//  }
 }
 
 repositories {
@@ -72,10 +69,7 @@ repositories {
   google()
 }
 
-def kotlin_version = getExtOrDefault("kotlinVersion")
 
 dependencies {
   implementation "com.facebook.react:react-android"
-  implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
-
