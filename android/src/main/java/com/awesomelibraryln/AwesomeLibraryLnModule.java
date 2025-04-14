@@ -54,24 +54,16 @@ public class AwesomeLibraryLnModule extends ReactContextBaseJavaModule {
         Toast.makeText(getReactApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
     //注册接收Android广播
-    @SuppressLint("UnspecifiedRegisterReceiverFlag")
+
     @ReactMethod
     public void registerReceiver() {
       //注册广播单例模式
-        if (lAwesomeReceiver != null) {
-          return;
-        }
-        lAwesomeReceiver = new AwesomeReceiver();
-        IntentFilter mIntentFilter = new IntentFilter();
-        mIntentFilter.addAction(BAIWEI_WIZARPOS_GET_ACTION);
-        getReactApplicationContext().registerReceiver(lAwesomeReceiver, mIntentFilter);
+      registerReceiverJava();
     }
     //注销接收Android广播
     @ReactMethod
     public void unregisterReceiver() {
-        if (lAwesomeReceiver != null) {
-            getReactApplicationContext().unregisterReceiver(lAwesomeReceiver);
-        }
+      unregisterReceiverJava();
     }
     // 发送数据
 //    sendMsgToServer_wizarpos_2 ("3","","","","","");//查询状态
@@ -92,7 +84,23 @@ public class AwesomeLibraryLnModule extends ReactContextBaseJavaModule {
       intent.setAction(BAIWEI_WIZARPOS_SET_ACTION);
       getReactApplicationContext().sendBroadcast(intent);
     }
-
+    //注册
+  @SuppressLint("UnspecifiedRegisterReceiverFlag")
+  public static void registerReceiverJava(){
+    if (lAwesomeReceiver != null) {
+      return;
+    }
+    lAwesomeReceiver = new AwesomeReceiver();
+    IntentFilter mIntentFilter = new IntentFilter();
+    mIntentFilter.addAction(BAIWEI_WIZARPOS_GET_ACTION);
+    myContext.registerReceiver(lAwesomeReceiver, mIntentFilter);
+  }
+  //注销
+  public static void unregisterReceiverJava(){
+    if (lAwesomeReceiver != null) {
+      myContext.unregisterReceiver(lAwesomeReceiver);
+    }
+  }
   //建立监听通过原生传递参数给react-native
   public static void sendEventToRn(String eventName, WritableMap nestedMap) {
 //    WritableMap nestedMap = Arguments.createMap();
