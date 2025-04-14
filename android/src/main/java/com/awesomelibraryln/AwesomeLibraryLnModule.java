@@ -1,6 +1,7 @@
 package com.awesomelibraryln;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.widget.Toast;
@@ -58,12 +59,12 @@ public class AwesomeLibraryLnModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void registerReceiver() {
       //注册广播单例模式
-      registerReceiverJava();
+      registerReceiverJava(myContext);
     }
     //注销接收Android广播
     @ReactMethod
     public void unregisterReceiver() {
-      unregisterReceiverJava();
+      unregisterReceiverJava(myContext);
     }
     // 发送数据
 //    sendMsgToServer_wizarpos_2 ("3","","","","","");//查询状态
@@ -86,19 +87,19 @@ public class AwesomeLibraryLnModule extends ReactContextBaseJavaModule {
     }
     //注册
   @SuppressLint("UnspecifiedRegisterReceiverFlag")
-  public static void registerReceiverJava(){
+  public static void registerReceiverJava(Context MainActivity){
     if (lAwesomeReceiver != null) {
       return;
     }
     lAwesomeReceiver = new AwesomeReceiver();
     IntentFilter mIntentFilter = new IntentFilter();
     mIntentFilter.addAction(BAIWEI_WIZARPOS_GET_ACTION);
-    myContext.registerReceiver(lAwesomeReceiver, mIntentFilter);
+    MainActivity.registerReceiver(lAwesomeReceiver, mIntentFilter);
   }
   //注销
-  public static void unregisterReceiverJava(){
+  public static void unregisterReceiverJava(Context MainActivity){
     if (lAwesomeReceiver != null) {
-      myContext.unregisterReceiver(lAwesomeReceiver);
+      MainActivity.unregisterReceiver(lAwesomeReceiver);
     }
   }
   //建立监听通过原生传递参数给react-native
