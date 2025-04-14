@@ -57,6 +57,10 @@ public class AwesomeLibraryLnModule extends ReactContextBaseJavaModule {
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
     @ReactMethod
     public void registerReceiver() {
+      //注册广播单例模式
+        if (lAwesomeReceiver != null) {
+          return;
+        }
         lAwesomeReceiver = new AwesomeReceiver();
         IntentFilter mIntentFilter = new IntentFilter();
         mIntentFilter.addAction(BAIWEI_WIZARPOS_GET_ACTION);
